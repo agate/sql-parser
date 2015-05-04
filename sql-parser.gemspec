@@ -1,21 +1,37 @@
-$:.push File.expand_path('../lib', __FILE__)
-require 'sql-parser/version'
+# -*- encoding: utf-8 -*-
+# stub: sql-parser 0.0.2 ruby lib
 
 Gem::Specification.new do |s|
-  
-  s.name        = 'sql-parser'
-  s.version     = SQLParser::VERSION
-  s.authors     = ['Dray Lacy', 'Louis Mullie']
-  s.email       = ['dray@izea.com', 'louis.mullie@gmail.com']
-  s.homepage    = 'https://github.com/louismullie/sql-parser'
-  s.summary     = %q{ Ruby library for parsing and generating SQL statements }
-  s.description = %q{ A Racc-based Ruby parser and generator for SQL statements }
+  s.name = "sql-parser"
+  s.version = "0.0.2"
 
-  s.files = Dir.glob('lib/**/*')
-  
-  s.add_runtime_dependency 'racc'
-  
-  s.add_development_dependency 'rspec'
-  s.add_development_dependency 'rake'
-  
+  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
+  s.require_paths = ["lib"]
+  s.authors = ["Dray Lacy", "Louis Mullie"]
+  s.date = "2015-05-04"
+  s.description = " A Racc-based Ruby parser and generator for SQL statements "
+  s.email = ["dray@izea.com", "louis.mullie@gmail.com"]
+  s.files = ["lib/sql-parser", "lib/sql-parser.rb", "lib/sql-parser/parser.racc", "lib/sql-parser/parser.racc.rb", "lib/sql-parser/parser.rex", "lib/sql-parser/parser.rex.rb", "lib/sql-parser/sql_visitor.rb", "lib/sql-parser/statement.rb", "lib/sql-parser/version.rb"]
+  s.homepage = "https://github.com/louismullie/sql-parser"
+  s.rubygems_version = "2.2.3"
+  s.summary = "Ruby library for parsing and generating SQL statements"
+
+  if s.respond_to? :specification_version then
+    s.specification_version = 4
+
+    if Gem::Version.new(Gem::VERSION) >= Gem::Version.new('1.2.0') then
+      s.add_runtime_dependency(%q<racc>, [">= 0"])
+      s.add_development_dependency(%q<rspec>, [">= 0"])
+      s.add_development_dependency(%q<rake>, [">= 0"])
+    else
+      s.add_dependency(%q<racc>, [">= 0"])
+      s.add_dependency(%q<rspec>, [">= 0"])
+      s.add_dependency(%q<rake>, [">= 0"])
+    end
+  else
+    s.add_dependency(%q<racc>, [">= 0"])
+    s.add_dependency(%q<rspec>, [">= 0"])
+    s.add_dependency(%q<rake>, [">= 0"])
+    s.add_dependency(%q<pry-bryebug%>, [">= 0"])
+  end
 end
