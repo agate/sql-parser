@@ -11,6 +11,10 @@ class TestParser < Test::Unit::TestCase
     assert_understands 'SELECT `current_user`'
   end
 
+  def test_accepts_e_as_unquoted_identifier
+    assert_understands 'SELECT * FROM emails'
+  end
+
   def test_scoped_star
     assert_understands 'SELECT `users`.* FROM `users`'
   end
@@ -51,8 +55,8 @@ class TestParser < Test::Unit::TestCase
   end
 
   def test_order_by_qualified_column
-    assert_understands 'SELECT * FROM `users` ORDER BY `users`.`name` ASC'
     assert_sql  'SELECT * FROM `users` ORDER BY `users`.`name` ASC', 'SELECT * FROM `users` ORDER BY users.name ASC'
+    assert_understands 'SELECT `users`.* FROM `users` ORDER BY `users`.`name` ASC'
   end
 
   def test_full_outer_join
@@ -375,7 +379,7 @@ class TestParser < Test::Unit::TestCase
 
   def assert_sql(expected, given)
     parser = SQLParser::Parser.new
-    #parser.instance_variable_set(:@yydebug, true)
+    parser.instance_variable_set(:@yydebug, true)
     assert_equal expected, parser.scan_str(given).to_sql
   end
 
