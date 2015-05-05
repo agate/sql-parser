@@ -50,6 +50,10 @@ class TestParser < Test::Unit::TestCase
     assert_understands 'SELECT * FROM `users` ORDER BY `name` DESC'
   end
 
+  def test_order_by_qualified_column
+    assert_understands 'SELECT * FROM `users` ORDER BY `users`.`name` ASC'
+  end
+
   def test_full_outer_join
     assert_understands 'SELECT * FROM `t1` FULL OUTER JOIN `t2` ON `t1`.`a` = `t2`.`a`'
     assert_understands 'SELECT * FROM `t1` FULL OUTER JOIN `t2` ON `t1`.`a` = `t2`.`a` FULL OUTER JOIN `t3` ON `t2`.`a` = `t3`.`a`'
@@ -369,7 +373,9 @@ class TestParser < Test::Unit::TestCase
   private
 
   def assert_sql(expected, given)
-    assert_equal expected, SQLParser::Parser.parse(given).to_sql
+    parser = SQLParser::Parser.new
+    #parser.instance_variable_set(:@yydebug, true)
+    assert_equal expected, parser.scan_str(given).to_sql
   end
 
   def assert_understands(sql)
