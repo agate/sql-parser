@@ -52,6 +52,7 @@ class TestParser < Test::Unit::TestCase
 
   def test_order_by_qualified_column
     assert_understands 'SELECT * FROM `users` ORDER BY `users`.`name` ASC'
+    assert_sql  'SELECT * FROM `users` ORDER BY `users`.`name` ASC', 'SELECT * FROM `users` ORDER BY users.name ASC'
   end
 
   def test_full_outer_join
